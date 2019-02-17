@@ -1,0 +1,8 @@
+conda install -c conda-forge keras 
+conda install -c conda-forge tensorflow
+conda install -c anaconda numpy 
+conda install -c menpo opencv
+conda install -c anaconda cloudpickle 
+conda install -c pjamesjoyce imutils 
+conda install -c anaconda pandas 
+https://pypi.org/project/webcolors/1.3/ pip install webcolors==1.3
