@@ -3,6 +3,7 @@ from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 
 import os
+import subprocess
 
 app = Flask(__name__)
 dropzone = Dropzone(app)
@@ -23,6 +24,15 @@ photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 patch_request_class(app)  # set maximum file size, default is 16MB
 
+def execute(cmd):
+    os.system(cmd)
+    to_return =dict()
+    files = [1]
+    for filename in files:
+        with open(filename, 'r') as f:
+            data = f.read()
+            to_return[filename] = data
+    return to_return
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -50,9 +60,9 @@ def index():
             
         session['file_urls'] = file_urls
         return "uploading..."
-    # return dropzone template on GET request    
-    return render_template('index.html')
 
+    # return dropzone template on GET request    
+    return render_template('index.html') 
 
 @app.route('/results')
 def results():
@@ -64,6 +74,9 @@ def results():
     # set the file_urls and remove the session variable
     file_urls = session['file_urls']
     session.pop('file_urls', None)
-    
-    return render_template('results.html', file_urls=file_urls)
+
+    proc=subprocess.Popen('python classify.py --model fashion.model --categorybin category_lb.pickle --colorbin color_lb.pickle --image uploads/', shell=True, stdout=subprocess.PIPE, )
+    output=proc.communicate()[0]
+
+    return render_template('results.html', file_urls=file_urls, output=output)
 

@@ -1,9 +1,65 @@
-<h1>Hello Results Page!</h1>
-<a href="{{ url_for('index') }}">Back</a><p>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Results</title>
+		<style>
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+				color: #EEEEEE;
+				background-color: #191919;
+				margin: 0;
+				max-height: 100vh;
+			}
 
-<ul>
-{% for file_url in file_urls %}
-    <li><img style="height: 150px" src="{{ file_url }}"></li>
-{% endfor %}
-</ul>
+			.header {
+				display: flex;
+				flex-direction: row;
+				background-color: #1E1E1C;
+			}       
+
+			h1 {
+				margin: 50px auto 50px 50px;
+			}
+
+			.container {
+				display: flex;
+				flex-wrap: wrap;
+				height: 100vh;
+			}
+
+			.image-half {
+				flex: 1;
+				justify-content: center;
+			}
+
+			.analysis-half {
+				flex: 1;
+				background-color: #1E1E1C;
+				justify-content: center;
+			}
+
+			.image {
+				width: 100%;
+				margin: 0;
+				position: relative;
+				top: 50%;
+				left: 50%;
+				margin-right: -50%;
+				transform: translate(-50%, -50%);
+			}
+		</style>
+	</head>
+	<body>
+		<section class="container">
+			<div class="image-half">
+				{% for file_url in file_urls %}
+				<img class="image" src="{{ file_url }}">
+				{% endfor %}
+			</div>
+			<div class="analysis-half">
+				<a class="return" href="{{ url_for('index') }}">Back</a>
+				{{ output }}
+			</div>
+	</body>
+</html>
 
