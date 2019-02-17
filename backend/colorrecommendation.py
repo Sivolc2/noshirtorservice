@@ -48,14 +48,3 @@ def closest_color(color):
             index = inputColorArray.index(input)
 
     return inputColorArray[index]
-def closest_color(color):
-
-    inputColorArray = [] #in hex
-    cost = 0
-    index = 0
-    for input in inputColorArray
-        if cost < (input - color) ** 2
-            cost = (input - color) ** 2
-            index = inputColorArray.index(input)
-
-    return inputColorArray[index]
